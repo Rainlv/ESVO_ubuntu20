@@ -172,7 +172,8 @@ private:
   enum TimeSurfaceMode
   {
     BACKWARD,// used in the T-RO20 submission
-    FORWARD
+    FORWARD,
+    RAW
   } time_surface_mode_;
 };
 } // namespace esvo_time_surface

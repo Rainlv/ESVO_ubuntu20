@@ -79,7 +79,7 @@ void TimeSurface::createTimeSurfaceAtTime(const ros::Time& external_sync_time)
             expVal *= polarity;
 
           // Backward version
-          if(time_surface_mode_ == BACKWARD)
+          if(time_surface_mode_ == BACKWARD || time_surface_mode_ == RAW)
             time_surface_map.at<double>(y,x) = expVal;
 
           // Forward version
@@ -135,7 +135,7 @@ void TimeSurface::createTimeSurfaceAtTime(const ros::Time& external_sync_time)
   cv_image.encoding = "mono8";
   cv_image.image = time_surface_map.clone();
 
-  if(time_surface_mode_ == FORWARD && time_surface_pub_.getNumSubscribers() > 0)
+  if(time_surface_mode_ == FORWARD || time_surface_mode_ == RAW && time_surface_pub_.getNumSubscribers() > 0)
   {
     cv_image.header.stamp = external_sync_time;
     time_surface_pub_.publish(cv_image.toImageMsg());
@@ -208,7 +208,7 @@ void TimeSurface::createTimeSurfaceAtTime_hyperthread(const ros::Time& external_
   cv_image.encoding = "mono8";
   cv_image.image = time_surface_map.clone();
 
-  if(time_surface_mode_ == FORWARD && time_surface_pub_.getNumSubscribers() > 0)
+  if(time_surface_mode_ == FORWARD || time_surface_mode_ == RAW && time_surface_pub_.getNumSubscribers() > 0)
   {
     cv_image.header.stamp = external_sync_time;
     time_surface_pub_.publish(cv_image.toImageMsg());
@@ -254,7 +254,7 @@ void TimeSurface::thread(Job &job)
             time_surface_map.at<double>(y,x) = expVal;
 
           // Forward version
-          if(time_surface_mode_ == FORWARD && bCamInfoAvailable_)
+          if(time_surface_mode_ == FORWARD || time_surface_mode_ == RAW && bCamInfoAvailable_)
           {
             Eigen::Matrix<double, 2, 1> uv_rect = precomputed_rectified_points_.block<2, 1>(0, y * sensor_size_.width + x);
             size_t u_i, v_i;

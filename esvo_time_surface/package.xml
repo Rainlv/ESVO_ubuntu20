@@ -21,6 +21,7 @@
   <depend>glog_catkin</depend>
   <depend>gflags_catkin</depend>
   <depend>dvs_msgs</depend>
+  <depend>prophesee_event_msgs</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

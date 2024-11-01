@@ -22,6 +22,11 @@ cs_add_executable(esvo_time_surface
     src/TimeSurface_node.cpp
 )
 
+cs_add_executable(esvo_time_surface_prophesee
+    src/TimeSurface_prophesee.cpp
+    src/TimeSurface_node_prophesee.cpp
+)
+
 # link the executable to the necesarry libs
 target_link_libraries(esvo_time_surface
    ${catkin_LIBRARIES}
